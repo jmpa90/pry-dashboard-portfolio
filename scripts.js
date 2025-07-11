@@ -58,10 +58,16 @@ function renderProjects(projectList) {
           <p><strong>Categoría:</strong> ${proj.categoria}</p>
           <p><strong>Nivel:</strong> ${proj.nivel}</p>
           <p>${proj.descripcion.length > 150 ? proj.descripcion.slice(0, 150) + '...' : proj.descripcion}</p>
-          <p><strong>Etiquetas:</strong> ${proj.etiquetas.map(t => {
-            const className = `badge-tag badge-${t.toLowerCase().replace(/\s+/g, '-')}`;
-            return `<span class="${className}">${t}</span>`;
-          }).join('')}</p>
+          <div>
+  <strong>Etiquetas:</strong>
+  <div class="d-flex flex-wrap gap-1 mt-1">
+    ${proj.etiquetas.map(t => {
+      const className = `badge-tag badge-${t.toLowerCase().replace(/\s+/g, '-')}`;
+      return `<span class="${className}">${t}</span>`;
+    }).join('')}
+  </div>
+</div>
+
           <p><strong>Última modificación:</strong> ${fechaFormateada}</p>
 
           <a href="${proj.link}" target="_blank" class="btn btn-outline-primary btn-sm">Ver Proyecto</a>
