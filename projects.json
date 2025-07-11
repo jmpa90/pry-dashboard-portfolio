@@ -1,0 +1,53 @@
+[
+  {
+    "titulo": "Análisis de precios de departamentos en Santiago de Chile",
+    "categoria": "Data Science",
+    "nivel": "Intermedio",
+    "etiquetas": [
+      "python",
+      "pandas",
+      "scikit-learn",
+      "jupyter",
+      "portales inmobiliarios"
+    ],
+    "link": "notebooks/eda.html",
+    "fechaModificacion": "2025-07-10",
+    "descripcion": "Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos. Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos."
+  },
+  {
+    "titulo": "Dashboard de KPIs",
+    "categoria": "Dashboards",
+    "nivel": "Básico",
+    "etiquetas": [
+      "Power BI",
+      "Visualización"
+    ],
+    "link": "notebooks/kpi.html",
+    "fechaModificacion": "2025-07-11",
+    "descripcion": "zando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de dep"
+  },
+  {
+    "titulo": "Reportes SQL",
+    "categoria": "Data Analyst",
+    "nivel": "Básico",
+    "etiquetas": [
+      "SQL",
+      "Bases de datos"
+    ],
+    "link": "notebooks/reportes-sql.html",
+    "fechaModificacion": "2023-07-10",
+    "descripcion": "Consultas y reportes realizados con SQL."
+  },
+  {
+    "titulo": "Reportes SQL",
+    "categoria": "Data Analyst",
+    "nivel": "Básico",
+    "etiquetas": [
+      "SQL",
+      "Bases de datos"
+    ],
+    "link": "notebooks/reportes-sql.html",
+    "fechaModificacion": "2025-07-01",
+    "descripcion": "Consultas y reportes realizados con SQL."
+  }
+]

@@ -1,23 +1,172 @@
 body {
   padding: 2rem;
-  background: #f9f9f9;
+  /* background: #f9f9f9; */
+  background: linear-gradient(to bottom, #ffffff, #f0f4f5);
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 }
+
+
 
 header {
   margin-bottom: 2rem;
   text-align: center;
 }
 
-main {
-  max-width: 900px;
-  margin: 0 auto;
+.header-box {
+  background-color: #4548f7;
+  padding: 10px 20px; /* Menos alto (vertical), mismo horizontal */
+  text-align: center;
+  border-radius: 8px;
+  margin: 0 auto 20px auto;
+  color: white;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  /* max-width: 700px; */
+  width: 90%;
 }
 
-.project-section {
-  margin-bottom: 3rem;
-  background: white;
-  padding: 1.5rem;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+
+
+
+
+.card {
+  border-radius: 5px;
 }
+
+.badge {
+  font-size: 0.8rem;
+}
+
+/* Estilo base para todas las etiquetas */
+.badge-tag {
+  color: white;
+  background-color: #6c757d; /* gris Bootstrap */
+  margin-right: 6px;
+  font-size: 0.75rem;
+  padding: 0.4em 0.7em;
+  border-radius: 8px;
+  text-transform: lowercase;
+}
+
+.badge-power-bi{background:#F2C811}
+.badge-visualización{background:#6C63FF}
+.badge-python{background:#3776AB}
+.badge-pandas{background:#150458}
+.badge-matplotlib{background:#11557C}
+.badge-seaborn{background:#1F77B4}
+.badge-sql{background:#E38C00}
+.badge-scikit-learn{background:#F7931E}
+.badge-tensorflow{background:#FF6F00}
+.badge-keras{background:#D00000}
+.badge-numpy{background:#013243}
+.badge-pytorch{background:#EE4C2C}
+.badge-jupyter{background:#F37626}
+
+.social-link {
+  display: inline-block;
+  margin-right: 15px;
+}
+
+.social-icon {
+  width: 24px;       /* tamaño fijo */
+  height: 24px;      /* mantiene proporción */
+  object-fit: contain; /* evita distorsión */
+  vertical-align: middle;
+}
+
+
+
+
+
+
+/* =======================
+📘 Estilos para notebooks con TOC
+Solo se aplica si existe #toc-container
+======================= */
+
+
+#toc-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 260px;
+  height: 100%;
+  background: #f5f5f5;
+  border-right: 1px solid #ddd;
+  padding: 20px 15px;
+  overflow-y: auto;
+  font-size: 0.9rem;
+  z-index: 900;
+}
+
+#toc-container h2 {
+  font-size: 1.1rem;
+  margin-bottom: 10px;
+  color: #333;
+}
+
+#toc-list {
+  list-style: none;
+  padding-left: 0;
+}
+
+#toc-list li {
+  margin: 8px 0;
+}
+
+#toc-list a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+#toc-list a:hover {
+  text-decoration: underline;
+}
+
+/* Aplicar margen al body solo si existe TOC */
+body:has(#toc-container) {
+  margin-left: 270px;
+}
+
+/* Responsive: ocultar TOC en pantallas pequeñas */
+@media (max-width: 768px) {
+  #toc-container {
+    display: none;
+  }
+  body:has(#toc-container) {
+    margin-left: 0;
+  }
+}
+
+/* Ocultar solo la entrada de código */
+.jp-CodeCell > .jp-Cell-inputWrapper {
+    display: none !important;
+}
+
+
+
+/* Mostrar los filtros horizontalmente */
+.filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.filters select,
+.filters input,
+.filters button {
+  width: auto;
+  flex: 1 1 auto;
+  min-width: 180px;
+}
+
+/* #resetFiltersBtn {
+  background-color: #ffffff;
+  color: #333;
+  border: 0px solid #ccc;
+  padding: 4px 16px; */
+/* } */
+
+
+
