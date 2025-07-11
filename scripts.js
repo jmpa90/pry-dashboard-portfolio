@@ -59,6 +59,7 @@ function renderProjects(projectList) {
           <p><strong>Nivel:</strong> ${proj.nivel}</p>
           <p>${proj.descripcion.length > 150 ? proj.descripcion.slice(0, 150) + '...' : proj.descripcion}</p>
           <div>
+          <p><strong>Última modificación:</strong> ${fechaFormateada}</p>
           <strong>Etiquetas:</strong>
           <div class="d-flex flex-wrap gap-1 mt-1">
             ${proj.etiquetas.map(t => {
@@ -66,9 +67,7 @@ function renderProjects(projectList) {
               return `<span class="${className}">${t}</span>`;
             }).join('')}
           </div>
-        </div>
-          <p><strong>Última modificación:</strong> ${fechaFormateada}</p>
-
+        <div class="d-flex flex-wrap gap-1 mt-1"  style="padding-top: 16px;">
           <a href="${proj.link}" target="_blank" class="btn btn-outline-primary btn-sm">Ver Proyecto</a>
         </div>
       </div>
