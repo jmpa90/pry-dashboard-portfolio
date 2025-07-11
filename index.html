@@ -1,30 +1,81 @@
 <!DOCTYPE html>
 <html lang="es">
+
 <head>
   <meta charset="UTF-8" />
-  <title>Portfolio Dashboard</title>
+  <title>Portafolio de Proyectos</title>
   <link rel="stylesheet" href="style.css" />
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
 </head>
+
 <body>
   <header>
-    <h1>Mi Portfolio de Proyectos</h1>
-    <p>Dashboard con gráficos y enlaces a notebooks</p>
+    <div class="header-box">
+      <h1>Portafolio de Proyectos</h1>
+      <p>Catálogo organizado con filtros por categoría, nivel y etiquetas</p>
+    </div>
+
+
+    <div class="social-links" style="margin-top: 10px;">
+      <a href="https://www.linkedin.com/in/juan-pablo-cort%C3%A9s-aranibar-77881a199/" target="_blank"
+        rel="noopener noreferrer" aria-label="LinkedIn"
+        style="margin-right: 15px; color: #0A66C2; text-decoration: none;">
+        <!-- Ícono LinkedIn clásico -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24"
+          preserveAspectRatio="xMidYMid meet">
+          <path
+            d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.762 2.239 5 5 5h14c2.762 0 5-2.238 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-10h3v10zm-1.5-11.268c-.966 0-1.75-.792-1.75-1.767 0-.975.784-1.767 1.75-1.767s1.75.792 1.75 1.767c0 .975-.784 1.767-1.75 1.767zm13.5 11.268h-3v-5.604c0-1.337-.476-2.251-1.666-2.251-.909 0-1.45.61-1.69 1.2-.087.212-.108.507-.108.805v5.85h-3v-10h3v1.368c.399-.615 1.11-1.49 2.7-1.49 1.972 0 3.446 1.287 3.446 4.054v5.068z" />
+        </svg>
+      </a>
+
+      <a href="https://github.com/jmpa90" target="_blank" rel="noopener noreferrer" aria-label="GitHub"
+        style="color: #333; text-decoration: none;">
+        <!-- Ícono GitHub SVG -->
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+          <path
+            d="M12 0C5.37 0 0 5.373 0 12c0 5.303 3.438 9.8 8.205 11.387.6.112.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61-.546-1.386-1.333-1.755-1.333-1.755-1.09-.745.083-.73.083-.73 1.205.084 1.838 1.238 1.838 1.238 1.07 1.835 2.81 1.305 3.495.997.108-.775.418-1.305.76-1.605-2.665-.305-5.466-1.335-5.466-5.933 0-1.31.47-2.382 1.235-3.222-.125-.303-.535-1.523.115-3.176 0 0 1.005-.322 3.3 1.23a11.46 11.46 0 013.005-.404c1.02.005 2.045.138 3.005.404 2.28-1.552 3.285-1.23 3.285-1.23.655 1.653.245 2.873.12 3.176.77.84 1.23 1.912 1.23 3.222 0 4.61-2.8 5.625-5.475 5.922.43.37.815 1.1.815 2.22 0 1.606-.015 2.9-.015 3.293 0 .32.215.695.825.577C20.565 21.796 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+        </svg>
+      </a>
+      <a href="https://www.kaggle.com/juampaa" target="_blank" rel="noopener noreferrer" aria-label="Kaggle"
+        style="margin-left: 12px; display: inline-block; vertical-align: middle;">
+        <img src="https://storage.googleapis.com/kaggle-organizations/4/thumbnail.png" alt="Kaggle"
+          style="width: 24px; height: 24px; object-fit: contain;" />
+      </a>
+    </div>
   </header>
 
-  <main>
-    <section class="project-section">
-      <h2>Proyecto 1: Análisis de Datos</h2>
-      <a href="notebooks/dashboard.html" target="_blank">Ver Notebook</a>
+  <main class="container">
+    <section class="filters mb-4">
+      <select id="categoriaFilter" class="form-select mb-2">
+        <option value="all">Todas las categorías</option>
+      </select>
+
+      <select id="nivelFilter" class="form-select mb-2">
+        <option value="all">Todos los niveles</option>
+        <option value="Básico">Básico</option>
+        <option value="Intermedio">Intermedio</option>
+        <option value="Avanzado">Avanzado</option>
+      </select>
+
+      <input type="text" id="tagFilter" class="form-control mb-2" placeholder="Filtrar por etiqueta (ej: Python)" />
+
+<button id="resetFiltersBtn" class="btn btn-secondary btn-sm" style="align-self: flex-start; margin-top: 4px; max-width: 120px; width: 100%;">
+  Borrar filtros
+</button>
+
+
     </section>
 
-    <section class="project-section">
-      <h2>Datos del Proyecto (Gráfico de ejemplo)</h2>
-      <canvas id="myChart" width="800" height="400"></canvas>
+
+    <section id="projectsContainer" class="row gy-4">
+      <!-- Aquí se cargarán los proyectos -->
     </section>
   </main>
 
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
   <script src="scripts.js"></script>
 </body>
+
+
 </html>
