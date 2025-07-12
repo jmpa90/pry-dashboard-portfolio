@@ -10,44 +10,116 @@
       "jupyter",
       "portales inmobiliarios"
     ],
-    "link": "notebooks/eda.html",
-    "fechaModificacion": "2025-07-10",
-    "descripcion": "Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos. Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos."
+    "link": "notebooks-html/eda.html",
+    "fechaModificacion": "2025-06-11",
+    "status": "En curso ⏳",
+    "descripcion": "Proyecto que analiza los precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos como pandas y scikit-learn. El objetivo es explorar tendencias del mercado inmobiliario y obtener insights relevantes a partir de los datos recopilados de portales inmobiliarios."
   },
   {
-    "titulo": "Dashboard de KPIs",
-    "categoria": "Dashboards",
-    "nivel": "Básico",
+    "titulo": "Análisis exploratorio de GPs de la F1",
+    "categoria": "Data Science",
+    "nivel": "Intermedio",
     "etiquetas": [
-      "Power BI",
-      "Visualización"
+      "python",
+      "pandas",
+      "matplotlib",
+      "seaborn",
+      "scikit-learn",
+      "jupyter",
+      "API F1"
     ],
-    "link": "notebooks/kpi.html",
-    "fechaModificacion": "2025-07-11",
-    "descripcion": "zando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de departamentos en Santiago, Chile, utilizando Python y bibliotecas de análisis de datos.Proyecto que análiza precios de dep"
+    "link": "notebooks-html/f1_2023_eda.html",
+    "fechaModificacion": "2025-05-01",
+    "status": "Terminado ✅",
+    "descripcion": "Proyecto de análisis exploratorio de datos (EDA) sobre los Grandes Premios de Fórmula 1 desde 2023. Utiliza Python y librerías de análisis y visualización para identificar tendencias, estadísticas clave y patrones relevantes en los datos obtenidos mediante la API oficial de F1."
   },
   {
-    "titulo": "Reportes SQL",
-    "categoria": "Data Analyst",
-    "nivel": "Básico",
+    "titulo": "Análisis de audio de conversaciones entre pilotos de F1 y sus ingenieros durante los GP",
+    "categoria": "Machine Learning",
+    "nivel": "Avanzado",
     "etiquetas": [
-      "SQL",
-      "Bases de datos"
+      "python",
+      "machine learning",
+      "audio analysis",
+      "speech-to-text",
+      "F1",
+      "jupyter"
     ],
-    "link": "notebooks/reportes-sql.html",
-    "fechaModificacion": "2023-07-10",
-    "descripcion": "Consultas y reportes realizados con SQL."
+    "link": "notebooks-html/audio-f1.html",
+    "fechaModificacion": "2025-07-15",
+    "status": "En curso ⏳",
+    "descripcion": "Proyecto que analiza los audios de las conversaciones entre pilotos de F1 y sus ingenieros durante las distintas sesiones de un Gran Premio. Utiliza técnicas de machine learning y procesamiento de audio para extraer información relevante y patrones de comunicación."
   },
   {
-    "titulo": "Reportes SQL",
-    "categoria": "Data Analyst",
+    "titulo": "Análisis de presencia mediática de candidatos presidenciales Chile 2025",
+    "categoria": "Data Science",
     "nivel": "Básico",
     "etiquetas": [
-      "SQL",
-      "Bases de datos"
+      "python",
+      "pandas",
+      "matplotlib",
+      "google news"
     ],
-    "link": "notebooks/reportes-sql.html",
+    "link": "notebooks-html/reportes-sql.html",
     "fechaModificacion": "2025-07-01",
-    "descripcion": "Consultas y reportes realizados con SQL."
-  }
+    "status": "En curso ⏳",
+    "descripcion": "Proyecto que analiza la presencia en medios de los candidatos a la presidencia de Chile 2025 utilizando Python. Se recopilan menciones en Google News y se generan reportes para identificar tendencias y cobertura mediática."
+  },
+  {
+    "titulo": "Web scraping de canales políticos",
+    "categoria": "Data Engineering",
+    "nivel": "Intermedio",
+    "etiquetas": [
+      "python",
+      "scraping",
+      "youtube",
+      "json",
+      "automatización",
+      "política"
+    ],
+    "link": "notebooks-html/scraping_youtube.html",
+    "fechaModificacion": "2025-07-20",
+    "status": "Terminado ✅",
+    "descripcion": "Proyecto que realiza scraping diario de canales de YouTube identificados como de izquierda y derecha política. Los resultados se almacenan automáticamente en archivos JSON, permitiendo el análisis de tendencias, contenido y actividad de los canales a lo largo del tiempo."
+  },
+  {
+  "titulo": "Análisis exploratorio de vuelos desde Santiago - Línea Aérea X",
+  "categoria": "Data Science",
+  "nivel": "Intermedio",
+  "etiquetas": [
+    "python",
+    "pandas",
+    "matplotlib",
+    "seaborn",
+    "eda",
+    "aeronáutica"
+  ],
+  "link": "notebooks-html/vuelos-eda.html",
+  "fechaModificacion": "2025-07-10",
+  "status": "Terminado ✅",
+  "descripcion": "Análisis exploratorio de datos (EDA) de vuelos desde Santiago realizados por la línea aérea X. El proyecto identifica tendencias en frecuencia, retrasos, destinos más populares y patrones estacionales utilizando Python y bibliotecas de visualización."
+},
+{
+  "titulo": "Arquitectura ETL en Azure con Databricks, Data Factory y Power BI",
+  "categoria": "Data Engineering",
+  "nivel": "Avanzado",
+  "etiquetas": [
+    "azure",
+    "etl",
+    "databricks",
+    "data factory",
+    "power bi",
+    "datalake",
+    "parquet",
+    "csv",
+    "logic apps"
+  ],
+  "link": "#",
+  "fechaModificacion": "2025-07-11",
+  "status": "Backlog 🗂️",
+  "descripcion": "Diseño y documentación de una arquitectura ETL en Azure que integra Logic Apps, notebooks de Databricks, Data Factory, Data Lake, y Power BI para procesamiento y visualización de datos en formatos Parquet y CSV."
+}
+
+
+
 ]
