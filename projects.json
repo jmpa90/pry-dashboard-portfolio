@@ -96,7 +96,7 @@
   ],
   "link": "notebooks-html/vuelos-eda.html",
   "fechaModificacion": "2025-07-10",
-  "status": "Terminado ✅",
+  "status": "Backlog 🗂️",
   "descripcion": "Análisis exploratorio de datos (EDA) de vuelos desde Santiago realizados por la línea aérea X. El proyecto identifica tendencias en frecuencia, retrasos, destinos más populares y patrones estacionales utilizando Python y bibliotecas de visualización."
 },
 {
