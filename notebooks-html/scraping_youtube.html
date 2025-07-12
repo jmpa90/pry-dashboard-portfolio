@@ -3,7 +3,7 @@
 <html lang="en">
 <head><meta charset="utf-8"/>
 <meta content="width=device-width, initial-scale=1.0" name="viewport"/>
-<title>reportes-sql</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>scraping_youtube</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <style type="text/css">
     pre { line-height: 125%; }
 td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
@@ -7509,21 +7509,192 @@ a.anchor-link {
   }
 </style>
 <!-- End of mermaid configuration --><link href="../style.css" rel="stylesheet"/></head>
-<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light"><a href="../index.html" id="back-button">← Volver al portafolio</a>
+<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+
 <div id="toc-container">
 <h2>Tabla de contenidos</h2>
+<hr/>
 <ul id="toc-list"></ul>
 </div>
-
-<main><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=02b34e42">
+<main>
+<div class="jp-Cell jp-MarkdownCell jp-Notebook-cell" id="cell-id=94090731">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea"><div class="jp-InputPrompt jp-InputArea-prompt">
+</div><div class="jp-RenderedHTMLCommon jp-RenderedMarkdown jp-MarkdownOutput" data-mime-type="text/markdown">
+<p><b style="font-size:40px;">Web scraping de canales políticos</b><br/><br/>
+Este notebook automatiza la recopilación de datos de diferentes canales de YouTube, accediendo a varias pestañas como videos, shorts, streams, podcasts, playlists y publicaciones. Utiliza peticiones HTTP y técnicas de web scraping para guardar la información en archivos JSON organizados por canal y tipo de contenido. El flujo incluye la selección dinámica de agentes de usuario, manejo de rutas de almacenamiento y pausas aleatorias para evitar bloqueos por parte de la plataforma.</p>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=86f2524b">
 <div class="jp-Cell-inputWrapper" tabindex="0">
 <div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
 </div>
 <div class="jp-InputArea jp-Cell-inputArea">
-<div class="jp-InputPrompt jp-InputArea-prompt">In [1]:</div>
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
 <div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
 <div class="cm-editor cm-s-jupyter">
-<div class="highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+<div class="highlight hl-ipython3"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">requests</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">re</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">json</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">random</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">datetime</span><span class="w"> </span><span class="kn">import</span> <span class="n">datetime</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">import</span><span class="w"> </span><span class="nn">time</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">itertools</span><span class="w"> </span><span class="kn">import</span> <span class="n">product</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pathlib</span><span class="w"> </span><span class="kn">import</span> <span class="n">Path</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=248c84eb">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">USER_AGENTS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s2">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"</span><span class="p">,</span>
+    <span class="s2">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36"</span><span class="p">,</span>
+    <span class="s2">"Mozilla/5.0 (Macintosh; Intel Mac OS X 13_3) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36"</span><span class="p">,</span>
+    <span class="s2">"Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:125.0) Gecko/20100101 Firefox/125.0"</span><span class="p">,</span>
+    <span class="s2">"Mozilla/5.0 (Macintosh; Intel Mac OS X 13_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.3 Safari/605.1.15"</span><span class="p">,</span>
+    <span class="s2">"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/124.0.0.0 Safari/537.36 Edg/124.0.0.0"</span><span class="p">,</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=71b8a836">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [183]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">get_data_from_video_tab</span><span class="p">(</span><span class="n">canal</span><span class="p">,</span> <span class="n">tab</span><span class="o">=</span><span class="s1">'videos'</span><span class="p">):</span>
+
+    <span class="n">url</span> <span class="o">=</span> <span class="sa">f</span><span class="s2">"https://www.youtube.com/@</span><span class="si">{</span><span class="n">canal</span><span class="si">}</span><span class="s2">/</span><span class="si">{</span><span class="n">tab</span><span class="si">}</span><span class="s2">"</span>
+    
+    <span class="n">headers</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">"User-Agent"</span><span class="p">:</span> <span class="n">random</span><span class="o">.</span><span class="n">choice</span><span class="p">(</span><span class="n">USER_AGENTS</span><span class="p">),</span>
+        <span class="s2">"Accept-Language"</span><span class="p">:</span> <span class="s2">"es-ES,es;q=0.9"</span><span class="p">,</span>
+        <span class="s2">"Accept"</span><span class="p">:</span> <span class="s2">"text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,*/*;q=0.8"</span><span class="p">,</span>
+        <span class="s2">"Cache-Control"</span><span class="p">:</span> <span class="s2">"no-cache"</span><span class="p">,</span>
+        <span class="s2">"Pragma"</span><span class="p">:</span> <span class="s2">"no-cache"</span><span class="p">,</span>
+        <span class="s2">"Connection"</span><span class="p">:</span> <span class="s2">"keep-alive"</span><span class="p">,</span>
+    <span class="p">}</span>
+
+    <span class="n">r</span> <span class="o">=</span> <span class="n">requests</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">headers</span><span class="o">=</span><span class="n">headers</span><span class="p">)</span>
+    <span class="n">html</span> <span class="o">=</span> <span class="n">r</span><span class="o">.</span><span class="n">text</span>
+
+    <span class="n">pattern</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">"var ytInitialData = ({.*?});&lt;/script&gt;"</span>
+    <span class="n">match</span> <span class="o">=</span> <span class="n">re</span><span class="o">.</span><span class="n">search</span><span class="p">(</span><span class="n">pattern</span><span class="p">,</span> <span class="n">html</span><span class="p">,</span> <span class="n">re</span><span class="o">.</span><span class="n">DOTALL</span><span class="p">)</span>
+
+    <span class="n">json_text</span> <span class="o">=</span> <span class="n">match</span><span class="o">.</span><span class="n">group</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">json</span><span class="o">.</span><span class="n">loads</span><span class="p">(</span><span class="n">json_text</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=ae4f7135">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">CHANNELS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'turnoenvivo'</span><span class="p">,</span>
+    <span class="s1">'delosquesobran'</span><span class="p">,</span>
+    <span class="s1">'SINFILTROSTV'</span><span class="p">,</span>
+    <span class="s1">'FNM_Chile'</span><span class="p">,</span>
+    <span class="s1">'politika_chilena_2025'</span><span class="p">,</span>
+    <span class="s1">'ChileanPolitics'</span><span class="p">,</span>
+    <span class="s1">'ElVillegaschile'</span><span class="p">,</span>
+    <span class="s1">'CanalElCiudadano'</span><span class="p">,</span>
+    <span class="s1">'Lamanoinvisible1723'</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=28cdfdf5">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="n">TABS</span> <span class="o">=</span> <span class="p">[</span>
+    <span class="s1">'featured'</span><span class="p">,</span>
+    <span class="s1">'videos'</span><span class="p">,</span>
+    <span class="s1">'shorts'</span><span class="p">,</span>
+    <span class="s1">'streams'</span><span class="p">,</span>
+    <span class="s1">'podcasts'</span><span class="p">,</span>
+    <span class="s1">'playlists'</span><span class="p">,</span>
+    <span class="s1">'posts'</span>
+<span class="p">]</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell jp-mod-noOutputs" id="cell-id=92db184b">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [5]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">getenv</span><span class="p">(</span><span class="s2">"GITHUB_ACTIONS"</span><span class="p">)</span> <span class="o">==</span> <span class="s2">"true"</span><span class="p">:</span>
+    <span class="n">base_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">""</span><span class="p">)</span>
+<span class="k">else</span><span class="p">:</span>
+    <span class="n">base_path</span> <span class="o">=</span> <span class="n">Path</span><span class="p">(</span><span class="s2">".."</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+</div><div class="jp-Cell jp-CodeCell jp-Notebook-cell" id="cell-id=8b5c82bb">
+<div class="jp-Cell-inputWrapper" tabindex="0">
+<div class="jp-Collapser jp-InputCollapser jp-Cell-inputCollapser">
+</div>
+<div class="jp-InputArea jp-Cell-inputArea">
+<div class="jp-InputPrompt jp-InputArea-prompt">In [ ]:</div>
+<div class="jp-CodeMirrorEditor jp-Editor jp-InputArea-editor" data-type="inline">
+<div class="cm-editor cm-s-jupyter">
+<div class="highlight hl-ipython3"><pre><span></span><span class="k">for</span> <span class="n">_channel</span><span class="p">,</span> <span class="n">_tab</span> <span class="ow">in</span> <span class="nb">list</span><span class="p">(</span><span class="n">product</span><span class="p">(</span><span class="n">CHANNELS</span><span class="p">,</span> <span class="n">TABS</span><span class="p">)):</span>
+    
+    <span class="n">data</span> <span class="o">=</span> <span class="n">get_data_from_video_tab</span><span class="p">(</span><span class="n">_channel</span><span class="p">,</span> <span class="n">_tab</span><span class="p">)</span>
+
+    <span class="n">folder</span> <span class="o">=</span> <span class="n">base_path</span> <span class="o">/</span> <span class="s2">"data-scraped"</span> <span class="o">/</span> <span class="s2">"channels"</span> <span class="o">/</span> <span class="n">_channel</span><span class="o">.</span><span class="n">lower</span><span class="p">()</span> <span class="o">/</span> <span class="sa">f</span><span class="s2">"tab-</span><span class="si">{</span><span class="n">_tab</span><span class="si">}</span><span class="s2">"</span>    
+    <span class="n">os</span><span class="o">.</span><span class="n">makedirs</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="n">exist_ok</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    
+    <span class="n">now</span> <span class="o">=</span> <span class="n">datetime</span><span class="o">.</span><span class="n">now</span><span class="p">()</span>
+    <span class="n">file_name</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">folder</span><span class="p">,</span> <span class="sa">f</span><span class="s2">"</span><span class="si">{</span><span class="n">now</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">'%y%m</span><span class="si">%d</span><span class="s1">_%H%M%S'</span><span class="p">)</span><span class="si">}</span><span class="s2">.json"</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">"JSON exportado en:"</span><span class="p">,</span> <span class="n">file_name</span><span class="p">)</span>
+
+    <span class="k">with</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_name</span><span class="p">,</span> <span class="s1">'w'</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">'utf-8'</span><span class="p">)</span> <span class="k">as</span> <span class="n">file</span><span class="p">:</span>
+        <span class="n">json</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">file</span><span class="p">,</span> <span class="n">ensure_ascii</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">indent</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+    <span class="n">time</span><span class="o">.</span><span class="n">sleep</span><span class="p">(</span><span class="n">random</span><span class="o">.</span><span class="n">uniform</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">4.0</span><span class="p">))</span>
 </pre></div>
 </div>
 </div>
@@ -7536,7 +7707,26 @@ a.anchor-link {
 <div class="jp-OutputArea-child">
 <div class="jp-OutputPrompt jp-OutputArea-prompt"></div>
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain" tabindex="0">
-<pre>1
+<pre>JSON exportado en: ..\data-scraped\channels\turnoenvivo\tab-featured\250711_210722.json
+JSON exportado en: ..\data-scraped\channels\turnoenvivo\tab-videos\250711_210724.json
+JSON exportado en: ..\data-scraped\channels\turnoenvivo\tab-shorts\250711_210727.json
+JSON exportado en: ..\data-scraped\channels\turnoenvivo\tab-streams\250711_210730.json
+JSON exportado en: ..\data-scraped\channels\turnoenvivo\tab-podcasts\250711_210734.json
+JSON exportado en: ..\data-scraped\channels\turnoenvivo\tab-playlists\250711_210736.json
+JSON exportado en: ..\data-scraped\channels\turnoenvivo\tab-posts\250711_210739.json
+JSON exportado en: ..\data-scraped\channels\delosquesobran\tab-featured\250711_210741.json
+JSON exportado en: ..\data-scraped\channels\delosquesobran\tab-videos\250711_210745.json
+JSON exportado en: ..\data-scraped\channels\delosquesobran\tab-shorts\250711_210748.json
+JSON exportado en: ..\data-scraped\channels\delosquesobran\tab-streams\250711_210752.json
+JSON exportado en: ..\data-scraped\channels\delosquesobran\tab-podcasts\250711_210753.json
+JSON exportado en: ..\data-scraped\channels\delosquesobran\tab-playlists\250711_210755.json
+JSON exportado en: ..\data-scraped\channels\delosquesobran\tab-posts\250711_210758.json
+JSON exportado en: ..\data-scraped\channels\sinfiltrostv\tab-featured\250711_210801.json
+JSON exportado en: ..\data-scraped\channels\sinfiltrostv\tab-videos\250711_210803.json
+JSON exportado en: ..\data-scraped\channels\sinfiltrostv\tab-shorts\250711_210807.json
+JSON exportado en: ..\data-scraped\channels\sinfiltrostv\tab-streams\250711_210809.json
+JSON exportado en: ..\data-scraped\channels\sinfiltrostv\tab-podcasts\250711_210811.json
+JSON exportado en: ..\data-scraped\channels\sinfiltrostv\tab-playlists\250711_210814.json
 </pre>
 </div>
 </div>
@@ -7547,23 +7737,34 @@ a.anchor-link {
 
 <script>
 window.onload = () => {
-    const headers = document.querySelectorAll('h1, h2, h3');
-    const tocList = document.getElementById('toc-list');
-    headers.forEach(h => {
-        const id = h.textContent.trim().toLowerCase().replace(/\s+/g, '-');
-        h.id = id;
-        const li = document.createElement('li');
-        const link = document.createElement('a');
-        link.href = `#${id}`;
-        link.textContent = h.textContent;
+  const headers = Array.from(document.querySelectorAll('h1, h2, h3'))
+    .filter(h => h.innerText.trim() !== "Tabla de contenidos");
 
-        // Indentación según nivel del header (h1 = 0, h2 = 1, h3 = 2)
-        const level = parseInt(h.tagName.substring(1)) - 1;
-        li.style.marginLeft = `${level * 15}px`;
+  const tocList = document.getElementById('toc-list');
 
-        li.appendChild(link);
-        tocList.appendChild(li);
-    });
+  headers.forEach(h => {
+    let rawText = h.innerText.trim();
+
+    let cleanId = rawText.toLowerCase()
+      .replace(/[^\w\s-]/g, '')
+      .replace(/\s+/g, '-');
+
+    h.id = cleanId;
+
+    const li = document.createElement('li');
+    const link = document.createElement('a');
+    link.href = `#${cleanId}`;
+    link.textContent = rawText;
+    li.appendChild(link);
+
+    if (h.tagName === 'H2') {
+      li.style.paddingLeft = '20px';
+    } else if (h.tagName === 'H3') {
+      li.style.paddingLeft = '40px';
+    }
+
+    tocList.appendChild(li);
+  });
 };
 </script>
 </body>

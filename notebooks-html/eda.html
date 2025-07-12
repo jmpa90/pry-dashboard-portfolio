@@ -7509,7 +7509,7 @@ a.anchor-link {
   }
 </style>
 <!-- End of mermaid configuration --><link href="../style.css" rel="stylesheet"/></head>
-<body class="jp-Notebook" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
+<body class="jp-Notebook hide-code" data-jp-theme-light="true" data-jp-theme-name="JupyterLab Light">
 
 <div id="toc-container">
 <h2>Tabla de contenidos</h2>
@@ -8184,9 +8184,9 @@ memory usage: 176.6+ KB
 window.onload = () => {
   const headers = Array.from(document.querySelectorAll('h1, h2, h3'))
     .filter(h => h.innerText.trim() !== "Tabla de contenidos");
-  
+
   const tocList = document.getElementById('toc-list');
-  
+
   headers.forEach(h => {
     let rawText = h.innerText.trim();
 
@@ -8202,7 +8202,6 @@ window.onload = () => {
     link.textContent = rawText;
     li.appendChild(link);
 
-    // Indentar según el nivel del header
     if (h.tagName === 'H2') {
       li.style.paddingLeft = '20px';
     } else if (h.tagName === 'H3') {

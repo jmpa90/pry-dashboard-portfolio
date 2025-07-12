@@ -39,11 +39,12 @@ function renderProjects(projectList) {
     return;
   }
 
+  const fallbackUrl = 'pagina-en-construccion.html';
+
   projectList.forEach(proj => {
     const card = document.createElement('div');
     card.className = 'col-md-6';
 
-    // Formatear fecha a formato legible, ej: "10 Jul 2024"
     const fecha = new Date(proj.fechaModificacion);
     const fechaFormateada = fecha.toLocaleDateString('es-ES', {
       day: 'numeric',
@@ -51,24 +52,33 @@ function renderProjects(projectList) {
       year: 'numeric'
     });
 
+    // Definir link según status
+    const isCompleted = ['Terminado ✅'].includes(proj.status);
+    const projectLink = isCompleted ? proj.link : fallbackUrl;
+
     card.innerHTML = `
-      <div class="card h-100 shadow-sm">
-        <div class="card-body">
-          <h5 class="card-title">${proj.titulo}</h5>
+      <div class="card h-100 d-flex flex-column shadow-sm">
+        <div class="card-body d-flex flex-column">
+          <h5 class="card-title card-title-link" title="${proj.titulo}">
+            <a href="${projectLink}" target="_blank" class="text-decoration-none text-dark project-link">
+              ${proj.titulo}
+            </a>
+          </h5>
           <p><strong>Categoría:</strong> ${proj.categoria}</p>
           <p><strong>Nivel:</strong> ${proj.nivel}</p>
-          <p>${proj.descripcion.length > 150 ? proj.descripcion.slice(0, 150) + '...' : proj.descripcion}</p>
-          <div>
           <p><strong>Última modificación:</strong> ${fechaFormateada}</p>
-          <strong>Etiquetas:</strong>
-          <div class="d-flex flex-wrap gap-1 mt-1">
+          <p><strong>Status:</strong> ${proj.status || ''}</p>
+          <p>${proj.descripcion.length > 150 ? proj.descripcion.slice(0, 150) + '...' : proj.descripcion}</p>
+          <div class="d-flex flex-wrap gap-1 mb-3">
             ${proj.etiquetas.map(t => {
               const className = `badge-tag badge-${t.toLowerCase().replace(/\s+/g, '-')}`;
               return `<span class="${className}">${t}</span>`;
             }).join('')}
           </div>
-        <div class="d-flex flex-wrap gap-1 mt-1"  style="padding-top: 16px;">
-          <a href="${proj.link}" target="_blank" class="btn btn-outline-primary btn-sm">Ver Proyecto</a>
+
+          <div class="mt-auto d-flex justify-content-start">
+            <a href="${projectLink}" target="_blank" class="btn btn-outline-primary btn-sm view-link">Ver Proyecto</a>
+          </div>
         </div>
       </div>
     `;
@@ -76,6 +86,7 @@ function renderProjects(projectList) {
     container.appendChild(card);
   });
 }
+
 
 
 

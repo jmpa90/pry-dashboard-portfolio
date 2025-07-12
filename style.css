@@ -21,7 +21,7 @@ header {
   color: white;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
   /* max-width: 700px; */
-  width: 90%;
+  width: 80%;
 }
 
 
@@ -31,6 +31,19 @@ header {
 .card {
   border-radius: 5px;
 }
+
+.card-title-link {
+  border-bottom: 1px solid #dee2e6;
+  padding-bottom: 6px;
+  margin-bottom: 12px;
+}
+
+.card-body strong {
+  color: #2b2d2e; /* un gris tipo Bootstrap más suave */
+  font-weight: 600; /* opcional, para que no pierdan énfasis */
+}
+
+
 
 .badge {
   font-size: 0.8rem;
@@ -60,6 +73,18 @@ header {
 .badge-numpy{background:#013243}
 .badge-pytorch{background:#EE4C2C}
 .badge-jupyter{background:#F37626}
+.badge-google-news{background:#4285F4}
+.badge-api-f1{background:#FF5733} 
+.badge-scraping{background:#831399}
+.badge-youtube{background:#ff0000}
+.badge-azure{background:#007FFF}
+.badge-etl{background:#00BFAE}
+.badge-databricks{background:#FF3621}
+.badge-data-factory{background:#0078D4}
+.badge-datalake{background:#0099D8}
+.badge-parquet{background:#F7B32B}
+.badge-csv{background:#4CAF50}
+.badge-logic-apps{background:#107C10}
 
 .social-link {
   display: inline-block;
@@ -73,6 +98,14 @@ header {
   vertical-align: middle;
 }
 
+
+footer {
+  position: sticky;
+  bottom: 0;
+  width: 100%;
+  padding-top: 0.25rem;
+  padding-bottom: 0.25rem;
+}
 
 
 
@@ -138,9 +171,15 @@ body:has(#toc-container) {
 }
 
 /* Ocultar solo la entrada de código */
-.jp-CodeCell > .jp-Cell-inputWrapper {
+/* .jp-CodeCell > .jp-Cell-inputWrapper {
+    display: none !important;
+} */
+
+/* Solo oculta el código si el body tiene la clase "hide-code" */
+body.hide-code .jp-CodeCell > .jp-Cell-inputWrapper {
     display: none !important;
 }
+
 
 
 
